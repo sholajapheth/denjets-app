@@ -31,7 +31,7 @@ const Page = () => {
         const response = await handler(payload);
         setIsSignedUp(true);
       } catch (error) {
-        console.log("error: ", error.message);
+        // console.log("error: ", error.message);
         alert("Email already subscribed!");
       }
     };

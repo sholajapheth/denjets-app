@@ -45,7 +45,7 @@ const handler = async (data: {
     };
   } catch (error) {
     console.log(error);
-    console.log(`Error: ${error?.response?.data.detail}`);
+    // console.log(`Error: ${error?.response?.data.detail}`);
     return {
       statusCode: 500,
       body: JSON.stringify(error),
