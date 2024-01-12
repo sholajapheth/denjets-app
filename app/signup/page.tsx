@@ -38,7 +38,7 @@ const Page = () => {
   
     return (
       <div className="w-full h-screen text-black flex items-center justify-center relative">
-        <div className="bg-[url('../public/bg.jpg')] bg-opacity-20 blur-sm bg-cover bg-center absolute -z-40 w-full h-screen"></div>
+        <div className="bg-[url('../public/plane.png')] bg-opacity-20 bg-no-repeat  absolute -z-40 w-full h-screen"></div>
         <div className="bg-black w-[95%] md:w-[50%] lg:w-[40%] rounded-md p-6  md:p-8 bg-opacity-95 relative overflow-hidden">
 
             <div className="absolute h-[4em] w-[4em]  -top-[2em] -right-[2em] bg-green-500" />
