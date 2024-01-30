@@ -38,11 +38,14 @@ const Page = () => {
       };
 
       const registerUser = async () => {
-        fetch("http://localhost:3000/api/signup", {
+        const baseUrl =
+          process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+        const response = await fetch(`${baseUrl}/api/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
+        return response;
       };
 
       const response = await registerUser();
