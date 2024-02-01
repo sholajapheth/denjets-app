@@ -32,6 +32,8 @@ export async function POST(request: NextRequest) {
       }
     );
 
+    console.log("data: ", data);
+
     // Return success response
     return NextResponse.json({ message: "User created successfully", data });
   } catch (error) {
@@ -39,9 +41,6 @@ export async function POST(request: NextRequest) {
     console.error("Error:", error);
 
     // Return appropriate error response
-    return NextResponse.json(
-      "An error occurred while processing the request",
-      {}
-    );
+    return NextResponse.json(error);
   }
 }
