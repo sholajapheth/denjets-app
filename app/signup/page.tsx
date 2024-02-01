@@ -26,7 +26,6 @@ const Page = () => {
     lastName: string;
     email: string;
   }) => {
-    // console.log(values);
     const { firstName, lastName, email } = values;
     try {
       const payload = {
@@ -36,10 +35,9 @@ const Page = () => {
         },
         email_address: email,
       };
-
+  
       const registerUser = async () => {
-        const baseUrl =
-          process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         const response = await fetch(`${baseUrl}/api/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -47,17 +45,18 @@ const Page = () => {
         });
         return response;
       };
-
+  
       const response = await registerUser();
-
+  
       console.log(response);
       setIsSignedUp(true);
     } catch (error) {
-      // console.log("error: ", error.message);
-      alert("Email already subscribed!");
+      console.log("error: ", error);
+      // alert("Email already subscribed!");
     }
   };
-
+  
+  
   return (
     <div className="w-full h-screen text-black flex items-center justify-center relative">
       <div className="bg-[url('../public/plane.png')] bg-opacity-20 bg-no-repeat  absolute -z-40 w-full h-screen"></div>
