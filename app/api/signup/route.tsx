@@ -39,8 +39,9 @@ export async function POST(request: NextRequest) {
     console.error("Error:", error);
 
     // Return appropriate error response
-    return NextResponse.json("An error occurred while processing the request", {
-      status: error?.response?.status || 500,
-    });
+    return NextResponse.json(
+      "An error occurred while processing the request",
+      {}
+    );
   }
 }
