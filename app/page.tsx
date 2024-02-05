@@ -15,11 +15,14 @@ export default function Home() {
         />
 
         <div className="w-full flex mt-4  md:mt-8 items-center justify-center ">
-          <Link href={"signup"} passHref>
-            <button className="bg-black rounded-md px-4 py-2 uppercase text-white font-bold">
-              Get Started
-            </button>
-          </Link>
+          <div className="flex flex-col items-center">
+            <p className="italic my-4">new travel experience coming soon...</p>
+            <Link href={"signup"} passHref>
+              <button className="bg-blue-900 rounded-md px-4 py-2  text-white font-bold uppercase">
+                sign up for updates
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </main>

@@ -58,10 +58,7 @@ const Page = () => {
 
   return (
     <div className="w-full h-screen text-black flex items-center justify-center relative">
-      <div className="bg-[url('../public/plane.png')] bg-opacity-20 bg-no-repeat  absolute -z-40 w-full h-screen"></div>
-      <div className="bg-black w-[95%] md:w-[50%] lg:w-[40%] rounded-md p-6  md:p-8 bg-opacity-95 relative overflow-hidden">
-        <div className="absolute h-[4em] w-[4em]  -top-[2em] -right-[2em] bg-green-500" />
-        <div className="absolute h-[6em] w-[6em]  bottom-[4em] md:bottom-[5em] -left-[4em] md:-left-[3em] rounded-full bg-green-500 shadow-md" />
+      <div className="bg-white shadow-md w-[95%] md:w-[50%] lg:w-[40%] rounded-md p-6  md:p-8 bg-opacity-95 relative overflow-hidden">
         <div className="overlay">
           <Formik
             initialValues={{ firstName: "", lastName: "", email: "" }}
@@ -75,7 +72,7 @@ const Page = () => {
                     <Image
                       src={"/denjets.png"}
                       alt="Vercel Logo"
-                      className="dark:invert"
+                      className=""
                       width={150}
                       height={24}
                       priority
