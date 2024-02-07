@@ -37,18 +37,22 @@ const Page = () => {
       };
 
       const registerUser = async () => {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const env = process.env.NODE_ENV;
+        const baseUrl =
+          env == "development"
+            ? process.env.NEXT_PUBLIC_BASE_URL
+            : "https://denjets-app.vercel.app";
         const response = await fetch(`${baseUrl}/api/signup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
-        return response;
+        return response.json();
       };
 
       const response = await registerUser();
 
-      console.log(response);
+      alert(response.message);
       // setIsSignedUp(true);
     } catch (error) {
       console.log("error: ", error);
