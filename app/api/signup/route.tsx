@@ -1,7 +1,16 @@
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
+import https from "https";
 
-export async function POST(request: NextRequest) {
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+});
+
+const axiosInstance = axios.create({
+  httpsAgent: agent,
+});
+
+export async function POST(request: NextRequest, response: NextResponse) {
   try {
     const { email_address, merge_fields } = await request.json();
 
@@ -13,8 +22,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const listId = "7d5286fbea";
-    const apiKey = "e8f9465d2429113f3fd099317f6a9d05-us20";
+    const listId = process.env.LIST_ID;
+    const apiKey = process.env.MAILCHIMP_API_KEY;
     const payload = {
       email_address,
       merge_fields,
@@ -22,7 +31,7 @@ export async function POST(request: NextRequest) {
     };
 
     // Send request to Mailchimp
-    const { data } = await axios.post(
+    const { data } = await axiosInstance.post(
       `https://us20.api.mailchimp.com/3.0/lists/${listId}/members`,
       payload,
       {
@@ -32,15 +41,18 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    console.log("data: ", data);
+    console.log("dataaaa: ", response);
 
     // Return success response
-    return NextResponse.json({ message: "User created successfully", data });
+    return NextResponse.json({
+      message: "User created successfully",
+      response,
+    });
   } catch (error) {
     // Log the error for debugging purposes
-    console.error("Error:", error);
+    console.error("Errorttt:", error);
 
     // Return appropriate error response
-    return NextResponse.json(error);
+    return new Response(JSON.stringify(error));
   }
 }
