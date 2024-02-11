@@ -9,11 +9,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
-  const [isSignedUp, setIsSignedUp] = useState(false);
+  // const [isSignedUp, setIsSignedUp] = useState(false);
   const [loading, setLoading] = useState(false);
   const nav = useRouter();
-
-  const inputRef = useRef(null);
 
   const subscribeUser = async (values: {
     firstName: string;
@@ -58,44 +56,44 @@ const Page = () => {
       .required("Email is required"),
   });
 
-  const submitForm = async (values: {
-    firstName: string;
-    lastName: string;
-    email: string;
-  }) => {
-    const { firstName, lastName, email } = values;
-    try {
-      const payload = {
-        merge_fields: {
-          FNAME: firstName,
-          LNAME: lastName,
-        },
-        email_address: email,
-      };
+  // const submitForm = async (values: {
+  //   firstName: string;
+  //   lastName: string;
+  //   email: string;
+  // }) => {
+  //   const { firstName, lastName, email } = values;
+  //   try {
+  //     const payload = {
+  //       merge_fields: {
+  //         FNAME: firstName,
+  //         LNAME: lastName,
+  //       },
+  //       email_address: email,
+  //     };
 
-      const registerUser = async () => {
-        const env = process.env.NODE_ENV;
-        const baseUrl =
-          env == "development"
-            ? process.env.NEXT_PUBLIC_BASE_URL
-            : "https://denjets-app.vercel.app";
-        const response = await fetch(`${baseUrl}/api/signup`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        return response.json();
-      };
+  //     const registerUser = async () => {
+  //       const env = process.env.NODE_ENV;
+  //       const baseUrl =
+  //         env == "development"
+  //           ? process.env.NEXT_PUBLIC_BASE_URL
+  //           : "https://denjets-app.vercel.app";
+  //       const response = await fetch(`${baseUrl}/api/signup`, {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify(payload),
+  //       });
+  //       return response.json();
+  //     };
 
-      const response = await registerUser();
+  //     const response = await registerUser();
 
-      alert(response.message);
-      // setIsSignedUp(true);
-    } catch (error) {
-      console.log("error: ", error);
-      // alert("Email already subscribed!");
-    }
-  };
+  //     alert(response.message);
+  //     // setIsSignedUp(true);
+  //   } catch (error) {
+  //     console.log("error: ", error);
+  //     // alert("Email already subscribed!");
+  //   }
+  // };
 
   return (
     <div className="w-full h-screen text-black flex items-center justify-center relative">
