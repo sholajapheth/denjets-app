@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -9,6 +9,28 @@ import Link from "next/link";
 
 const Page = () => {
   const [isSignedUp, setIsSignedUp] = useState(false);
+
+  const inputRef = useRef(null);
+
+  const subscribeUser = async (values: {
+    firstName: string;
+    lastName: string;
+    email: string;
+  }) => {
+    // this is where your mailchimp request is made
+
+    const res = await fetch("/api/subscribeUser", {
+      body: JSON.stringify(values),
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      method: "POST",
+    });
+
+    // console.log(res.json());
+  };
 
   const signUpSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -67,7 +89,7 @@ const Page = () => {
           <Formik
             initialValues={{ firstName: "", lastName: "", email: "" }}
             validationSchema={signUpSchema}
-            onSubmit={submitForm}
+            onSubmit={subscribeUser}
           >
             {(formik) => (
               <Form className="form">
