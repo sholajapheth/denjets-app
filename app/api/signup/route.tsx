@@ -52,7 +52,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       message: "User created successfully",
       response,
     });
-  } catch (error) {
+  } catch (error: any) {
     // Log the error for debugging purposes
     console.error("Errorttt:", error.response.data);
 
