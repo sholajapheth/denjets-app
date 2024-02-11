@@ -6,9 +6,12 @@ import axios from "axios";
 import { handler } from "@/functions/add-suscriber";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [isSignedUp, setIsSignedUp] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const nav = useRouter();
 
   const inputRef = useRef(null);
 
@@ -19,17 +22,29 @@ const Page = () => {
   }) => {
     // this is where your mailchimp request is made
 
-    const res = await fetch("/api/subscribeUser", {
-      body: JSON.stringify(values),
+    setLoading(true);
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+    try {
+      console.log("val: ", values);
 
-      method: "POST",
-    });
+      const res = await axios.post("/api/signup", values, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    // console.log(res.json());
+      alert(res.data.detail ? res.data.detail : res?.data?.message);
+      console.log("res: ", res.data.message);
+      setLoading(false);
+      nav.back();
+
+      return res.data; // Optionally return data
+    } catch (error) {
+      // Handle errors here
+      console.error("Error occurred:", error);
+      setLoading(false);
+      throw error; // Optionally rethrow the error
+    }
   };
 
   const signUpSchema = Yup.object().shape({
@@ -153,9 +168,9 @@ const Page = () => {
                 <button
                   type="submit"
                   className="bg-primary text-white px-6 py-3 bg-green-600 w-full cursor-pointer hover:bg-green-500 hover:scale-x-95 rounded-md hover:bg-opacity-90 transition-all duration-300"
-                  disabled={!formik.isValid || !formik.dirty}
+                  disabled={!formik.isValid || !formik.dirty || loading}
                 >
-                  Sign Up
+                  {loading ? "working..." : "Sign Up"}
                 </button>
               </Form>
             )}

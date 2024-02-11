@@ -11,21 +11,25 @@ const axiosInstance = axios.create({
 });
 
 export async function POST(request: NextRequest, response: NextResponse) {
+  console.log("calledjioucfd");
+
+  const { email, merge_fields } = await request.json();
+
+  console.log("e: ", email);
+
+  // Validate email_address
+  if (!email) {
+    return NextResponse.json(
+      { message: "Please provide an email address" },
+      { status: 400 }
+    );
+  }
+
   try {
-    const { email_address, merge_fields } = await request.json();
-
-    // Validate email_address
-    if (!email_address) {
-      return NextResponse.json(
-        { message: "Please provide an email address" },
-        { status: 400 }
-      );
-    }
-
     const listId = process.env.LIST_ID;
     const apiKey = process.env.MAILCHIMP_API_KEY;
     const payload = {
-      email_address,
+      email_address: email,
       merge_fields,
       status: "subscribed",
     };
@@ -41,7 +45,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
       }
     );
 
-    console.log("dataaaa: ", response);
+    console.log("dataaaa: ", data);
 
     // Return success response
     return NextResponse.json({
@@ -50,9 +54,9 @@ export async function POST(request: NextRequest, response: NextResponse) {
     });
   } catch (error) {
     // Log the error for debugging purposes
-    console.error("Errorttt:", error);
+    console.error("Errorttt:", error.response.data);
 
     // Return appropriate error response
-    return new Response(JSON.stringify(error));
+    return new NextResponse(JSON.stringify(error.response.data));
   }
 }
